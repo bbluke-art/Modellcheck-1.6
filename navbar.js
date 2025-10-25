@@ -12,7 +12,7 @@ class CustomNavbar extends HTMLElement {
           box-shadow: 0 2px 4px rgba(0,0,0,0.05);
           position: sticky;
           top: 0;
-          z-index: 100;
+          z-index: 50;
         }
         .logo {
           color: #4f46e5;
@@ -21,7 +21,6 @@ class CustomNavbar extends HTMLElement {
           display: flex;
           align-items: center;
           gap: 0.5rem;
-          text-decoration: none;
         }
         .nav-links {
           display: flex;
@@ -69,49 +68,46 @@ class CustomNavbar extends HTMLElement {
           }
         }
       </style>
-
       <nav>
-        <a href="index.html" class="logo">
+        <a href="/" class="logo">
           <i data-feather="activity"></i>
           FitTrack Pro
         </a>
-
-        <button class="mobile-menu-btn" aria-label="Menu">
+        
+        <button class="mobile-menu-btn">
           <i data-feather="menu"></i>
         </button>
-
+        
         <ul class="nav-links">
-          <li><a href="index.html"><i data-feather="home"></i> Home</a></li>
-          <li><a href="features.html"><i data-feather="zap"></i> Features</a></li>
-          <li><a href="workouts.html"><i data-feather="dumbbell"></i> Workouts</a></li>
-          <li><a href="progress.html"><i data-feather="trending-up"></i> Progress</a></li>
-          <li><a href="pricing.html"><i data-feather="dollar-sign"></i> Pricing</a></li>
-          <li><a href="signup.html" class="cta-button">Sign Up</a></li>
+          <li><a href="/"><i data-feather="home" class="w-4 h-4"></i> Home</a></li>
+          <li><a href="/features.html"><i data-feather="zap" class="w-4 h-4"></i> Features</a></li>
+          <li><a href="/workouts.html"><i data-feather="dumbbell" class="w-4 h-4"></i> Workouts</a></li>
+          <li><a href="/progress.html"><i data-feather="trending-up" class="w-4 h-4"></i> Progress</a></li>
+          <li><a href="/pricing.html"><i data-feather="dollar-sign" class="w-4 h-4"></i> Pricing</a></li>
+          <li><a href="/signup.html" class="cta-button">Sign Up</a></li>
         </ul>
       </nav>
     `;
 
-    // Feather icons im Shadow DOM initialisieren
-    requestAnimationFrame(() => {
-      if (window.feather) window.feather.replace({ 'stroke-width': 1.5, parent: this.shadowRoot });
-    });
-
     // Mobile menu toggle
-    const menuBtn = this.shadowRoot.querySelector('.mobile-menu-btn');
-    const navLinks = this.shadowRoot.querySelector('.nav-links');
-    menuBtn.addEventListener('click', () => {
-      const isVisible = navLinks.style.display === 'flex';
-      navLinks.style.display = isVisible ? 'none' : 'flex';
-      navLinks.style.flexDirection = 'column';
-      navLinks.style.position = 'absolute';
-      navLinks.style.top = '100%';
-      navLinks.style.left = '0';
-      navLinks.style.right = '0';
-      navLinks.style.backgroundColor = 'white';
-      navLinks.style.padding = '1rem';
-      navLinks.style.gap = '1rem';
-      navLinks.style.boxShadow = '0 4px 6px rgba(0,0,0,0.1)';
+    this.shadowRoot.querySelector('.mobile-menu-btn').addEventListener('click', () => {
+      const links = this.shadowRoot.querySelector('.nav-links');
+      if (links.style.display === 'flex') {
+        links.style.display = 'none';
+      } else {
+        links.style.display = 'flex';
+        links.style.flexDirection = 'column';
+        links.style.position = 'absolute';
+        links.style.top = '100%';
+        links.style.left = '0';
+        links.style.right = '0';
+        links.style.backgroundColor = 'white';
+        links.style.padding = '1rem';
+        links.style.gap = '1rem';
+        links.style.boxShadow = '0 4px 6px rgba(0,0,0,0.1)';
+      }
     });
   }
 }
+
 customElements.define('custom-navbar', CustomNavbar);
